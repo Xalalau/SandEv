@@ -1,26 +1,3 @@
--- Net wrapper -> Register less net strings
-    -- To use it just change net.Start to SEv.Net:Start and net.Receive to SEv.Net:Receive
-    -- There's no need to declare the net name with util.AddNetworkString
-        -- By Zaurzo and Xalalau
-
-function SEv.Net:Start(id)
-    net.Start("sev_cheap")
-    net.WriteString(id)
-end
-
-function SEv.Net:Receive(id, func)
-    SEv.Net.cheap[id] = func
-end
-
-local function NetWrapper(len, ply)
-    local id = net.ReadString()
-
-    if isfunction(SEv.Net.cheap[id]) then
-        SEv.Net.cheap[id](len, ply)
-    end
-end
-net.Receive("sev_cheap", NetWrapper)
-
 -- Send huge string
 function SEv.Net:SendString(str, callbackName, ply)
     local chunksID = util.MD5(str)
@@ -54,7 +31,7 @@ function SEv.Net:SendData(chunksID, data, callbackName, toPly, isCompressedStrin
 
             local isLastChunk = i == totalChunks
 
-            SEv.Net:Start("sev_net_send_string")
+            net.Start("sev_net_send_string")
             net.WriteString(chunksID)
             net.WriteUInt(SEv.Net.sendTab[chunksID], 32)
             net.WriteUInt(#chunk, 16)
@@ -83,7 +60,7 @@ function SEv.Net:SendData(chunksID, data, callbackName, toPly, isCompressedStrin
     end
 end
 
-SEv.Net:Receive("sev_net_send_string", function()
+net.Receive("sev_net_send_string", function()
     local chunksID = net.ReadString()
     local chunksSubID = net.ReadUInt(32)
     local len = net.ReadUInt(16)
@@ -119,3 +96,26 @@ SEv.Net:Receive("sev_net_send_string", function()
         _G[callbackName](data)
     end
 end)
+
+-- Net wrapper -> Register less net strings
+    -- To use it just change net.Start to SEv.Net:Start and net.Receive to SEv.Net:Receive
+    -- There's no need to declare the net name with util.AddNetworkString
+        -- By Zaurzo and Xalalau
+
+function SEv.Net:Start(id)
+    net.Start("sev_cheap")
+    net.WriteString(id)
+end
+
+function SEv.Net:Receive(id, func)
+    SEv.Net.cheap[id] = func
+end
+
+local function NetWrapper(len, ply)
+    local id = net.ReadString()
+
+    if isfunction(SEv.Net.cheap[id]) then
+        SEv.Net.cheap[id](len, ply)
+    end
+end
+net.Receive("sev_cheap", NetWrapper)

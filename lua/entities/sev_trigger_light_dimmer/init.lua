@@ -169,7 +169,7 @@ function ENT:BurnLight(ent, spotlight)
             timer.Simple(math.random(3, 9)/10, function()
                 if not ent:IsValid() then return end
 
-                SEv.Net:Start("sev_create_sparks")
+                net.Start("sev_create_sparks")
                 net.WriteVector(ent:GetPos())
                 net.Broadcast()
             end)
@@ -225,11 +225,11 @@ function ENT:StartTouch(ent)
         SEv.Addon:DropNightVisionGoggles(ply)
         SEv.Addon:DropNightVisionGogglesInspired(ply)
 
-        SEv.Net:Start("sev_set_spys_night_vision")
+        net.Start("sev_set_spys_night_vision")
         net.WriteBool(false)
         net.Send(ply)
 
-        SEv.Net:Start("sev_set_arctics_night_vision")
+        net.Start("sev_set_arctics_night_vision")
         net.WriteBool()
         net.Send(ply)
     end)
@@ -260,7 +260,7 @@ function ENT:EndTouch(ent)
         end
     end)
 
-    SEv.Net:Start("sev_set_spys_night_vision")
+    net.Start("sev_set_spys_night_vision")
     net.WriteBool(true)
     net.Send(ent)
 end

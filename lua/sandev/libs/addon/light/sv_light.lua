@@ -43,7 +43,7 @@ end)
 function SEv.Addon:CurseVJFirePlace(ent)
     if ent:GetClass() ~= "sent_vj_fireplace" then return false end
 
-    SEv.Net:Start("sev_curse_vc_fireplace")
+    net.Start("sev_curse_vc_fireplace")
     net.WriteEntity(ent)
     net.Broadcast()
 

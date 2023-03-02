@@ -50,7 +50,7 @@
 -- Print some nice messages
 function SEv.Lobby:PrintStatus(message)
     if self.instance.devMode then
-        SEv.Net:Start("sev_lobby_debug_text")
+        net.Start("sev_lobby_debug_text")
         net.WriteString(message)
         net.Broadcast()
     end

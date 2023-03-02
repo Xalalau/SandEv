@@ -380,6 +380,11 @@ hook.Add("InitPostEntity", "sev_init", function()
 
     -- Init instances
     for k, instance in ipairs(SEv.instances) do
+        -- Initialize net variables
+        if SERVER then
+            SEv:AddInstanceNets(instance)
+        end
+
         -- Copy the Log lib
         if instance.enableLogging then
             local override = instance.Log
@@ -471,7 +476,7 @@ hook.Add("InitPostEntity", "sev_init", function()
 
             -- Send the server memories at the appropriate time
             if CLIENT then
-                SEv.Net:Start(instance.id .. "_ask_for_memories")
+                net.Start(instance.id .. "_ask_for_memories")
                 net.SendToServer()
 
                 hook.Add(instance.id .. "_memories_received", instance.id .. "_initialize_cl_events", function()

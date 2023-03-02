@@ -1,14 +1,14 @@
 -- Visual effects
 
-SEv.Net:Receive("sev_create_smoke_stream", function()
+net.Receive("sev_create_smoke_stream", function()
     ParticleEffect("steam_train", net.ReadVector(), net.ReadAngle())
 end)
 
-SEv.Net:Receive("sev_create_sparks", function()
+net.Receive("sev_create_sparks", function()
     SEv.Effect:CreateSparks(net.ReadVector())
 end)
 
-SEv.Net:Receive("sev_create_ring_explosion", function()
+net.Receive("sev_create_ring_explosion", function()
     SEv.Effect:CreateRingExplosion(net.ReadVector())
 end)
 

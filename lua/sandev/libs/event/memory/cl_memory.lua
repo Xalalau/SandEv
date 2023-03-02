@@ -10,7 +10,7 @@ end
 
 -- Instance init
 function SEv.Event.Memory:InitCl(instance)
-    SEv.Net:Receive(instance.id .. "_broadcast_memory", function()
+    net.Receive(instance.id .. "_broadcast_memory", function()
         local memoryName = net.ReadString()
         local doNotRefreshEvents = net.ReadBool()
         local value = util.JSONToTable(net.ReadString())
@@ -20,7 +20,7 @@ function SEv.Event.Memory:InitCl(instance)
         instance.Event.Memory:Set(memoryName, value, doNotRefreshEvents, true)
     end)
     
-    SEv.Net:Receive(instance.id .. "_broadcast_memories", function()
+    net.Receive(instance.id .. "_broadcast_memories", function()
         instance.Event.Memory:ReceiveAllMemories(net.ReadTable())
         hook.Run(instance.id .. "_memories_received")
     end)

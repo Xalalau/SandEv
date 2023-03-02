@@ -142,12 +142,12 @@ end
 -- Instance init
 function SEv.Event:InitCl(instance)
     -- Load event tiers by server order
-    SEv.Net:Receive(instance.id .. "_event_initialize_tier_cl", function()
+    net.Receive(instance.id .. "_event_initialize_tier_cl", function()
         instance.Event:InitializeTier()
     end)
 
     -- Remove events by server order
-    SEv.Net:Receive(instance.id .. "_event_remove_all_cl", function()
+    net.Receive(instance.id .. "_event_remove_all_cl", function()
         instance.Event:RemoveAll()
 
         if self.instance.devMode then
@@ -155,14 +155,14 @@ function SEv.Event:InitCl(instance)
         end
     end)
 
-    SEv.Net:Receive(instance.id .. "_event_remove_all_ents_cl", function()
+    net.Receive(instance.id .. "_event_remove_all_ents_cl", function()
         if self.instance.devMode then
             instance.Event.renderEvent = {}
         end
     end)
 
     -- Remove an event by server order
-    SEv.Net:Receive(instance.id .. "_event_remove_cl", function()
+    net.Receive(instance.id .. "_event_remove_cl", function()
         local eventName = net.ReadString()
 
         instance.Event:Remove(eventName)
@@ -173,12 +173,12 @@ function SEv.Event:InitCl(instance)
     end)
 
     -- Receive entity rendering info
-    SEv.Net:Receive(instance.id .. "_event_set_render_cl", function()
+    net.Receive(instance.id .. "_event_set_render_cl", function()
         instance.Event:Render(net.ReadTable())
     end)
 
     -- Remove an event entity by server order
-    SEv.Net:Receive(instance.id .. "_event_Remove_render_cl", function()
+    net.Receive(instance.id .. "_event_Remove_render_cl", function()
         local eventName = net.ReadString()
         local entID = net.ReadString()
 
@@ -189,7 +189,7 @@ function SEv.Event:InitCl(instance)
 
     -- Receive all events
     local receivedTab = {}
-    SEv.Net:Receive(instance.id .. "_event_send_all_render_cl", function()
+    net.Receive(instance.id .. "_event_send_all_render_cl", function()
         local currentChunksID = net.ReadString()
         local len = net.ReadUInt(16)
         local chunk = net.ReadData(len)

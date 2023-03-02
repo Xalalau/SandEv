@@ -1,7 +1,7 @@
 -- Break spy's Night Vision
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=224378049
 
-SEv.Net:Receive("sev_set_spys_night_vision", function()
+net.Receive("sev_set_spys_night_vision", function()
     SEv.Addon:SetSpysNightVision(net.ReadBool())
 end)
 
@@ -41,7 +41,7 @@ end
 -- Break Arctic's Night Vision (CLIENT)
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=2389553185
 
-SEv.Net:Receive("sev_set_arctics_night_vision", function()
+net.Receive("sev_set_arctics_night_vision", function()
     SEv.Addon:SetArcticsNightVision()
 end)
 
@@ -52,7 +52,7 @@ function SEv.Addon:SetArcticsNightVision()
 
         ArcticNVGs_Toggle()
 
-        SEv.Net:Start("sev_set_arctics_night_vision")
+        net.Start("sev_set_arctics_night_vision")
         net.SendToServer()
     end
 end
@@ -60,15 +60,15 @@ end
 -- Break Night Vision Goggles (CLIENT)
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=1496324549
 
-SEv.Net:Receive("sev_drop_night_vision_goggles", function(_, ply)
-    SEv.Net:Start("DropDrGNVG")
+net.Receive("sev_drop_night_vision_goggles", function(_, ply)
+    net.Start("DropDrGNVG")
     net.SendToServer()
 end)
 
 -- Break Night Vision Goggles (MW:2019 Inspired) (CLIENT)
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=2242151511
 
-SEv.Net:Receive("sev_drop_night_vision_goggles_inspired", function(_, ply)
-    SEv.Net:Start("DropNVG")
+net.Receive("sev_drop_night_vision_goggles_inspired", function(_, ply)
+    net.Start("DropNVG")
     net.SendToServer()
 end)

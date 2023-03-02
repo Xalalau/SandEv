@@ -1,7 +1,7 @@
 -- Prevent the player from lighting vc fireplace (CLIENT)
 -- https://steamcommunity.com/workshop/filedetails/?id=131759821
 
-SEv.Net:Receive("sev_curse_vc_fireplace", function()
+net.Receive("sev_curse_vc_fireplace", function()
     SEv.Addon:CurseVJFirePlace(net.ReadEntity())
 end)
 

@@ -26,7 +26,7 @@ function SEv.Event.Memory:SendAllMemories(ply)
         end
     end
 
-    SEv.Net:Start(self.instance.id .. "_broadcast_memories")
+    net.Start(self.instance.id .. "_broadcast_memories")
     net.WriteTable(memoriesTab)
     net.Send(ply)
 end
@@ -96,7 +96,7 @@ end
 
 -- Instance init
 function SEv.Event.Memory:InitSv(instance)
-    SEv.Net:Receive(instance.id .. "_ask_for_memories", function(_, ply)
+    net.Receive(instance.id .. "_ask_for_memories", function(_, ply)
         instance.Event.Memory:SendAllMemories(ply)
     end)
 

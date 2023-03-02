@@ -9,7 +9,7 @@ function SEv.Addon:BreakNWMVGs(ply)
                 ply.vrnvgbroken = true
 
                 if util.NetworkStringToID("vrnvgnetbreakeasymode") then
-                    SEv.Net:Start("vrnvgnetbreakeasymode")
+                    net.Start("vrnvgnetbreakeasymode")
                     net.WriteBool(true)
                     net.Send(ply)
                 end
@@ -29,7 +29,7 @@ function SEv.Addon:RemoveRaskosNightvisionSWEP(ply)
 
     if weapon and weapon:IsValid() then
         if weapon:GetClass() == "nightvision" then
-            SEv.Net:Start("RASKO_NightvisionOff")
+            net.Start("RASKO_NightvisionOff")
             net.WriteEntity(ply)
             net.Send(ply)
             
@@ -45,7 +45,7 @@ end
 -- Break Arctic's Night Vision (SERVER)
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=2389553185
 
-SEv.Net:Receive("sev_set_arctics_night_vision", function(_, ply)
+net.Receive("sev_set_arctics_night_vision", function(_, ply)
     SEv.Addon:SetArcticsNightVision(ply)
 end)
 
@@ -73,7 +73,7 @@ end
 
 function SEv.Addon:DropNightVisionGoggles(ply)
     if ply:GetNWBool("WearingDrGNVG") then
-        SEv.Net:Start("sev_drop_night_vision_goggles")
+        net.Start("sev_drop_night_vision_goggles")
         net.Send(ply)
     end
 end
@@ -83,7 +83,7 @@ end
 
 function SEv.Addon:DropNightVisionGogglesInspired(ply)
     if ply:GetNWBool("WearingNVG") then
-        SEv.Net:Start("sev_drop_night_vision_goggles_inspired")
+        net.Start("sev_drop_night_vision_goggles_inspired")
         net.Send(ply)
     end
 end
